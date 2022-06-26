@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+      $(() => {
+        $("#add").click(() => {
+          console.log("btn clicked");
+          let input = {
+            bookid: $("#bookid").val(),
+            bookname: $("#bookname").val(),
+            price: $("#price").val(),
+          };
+          let object = {
+            data: input,
+            url: "http://localhost:8081/adddetails",
+            type: "get",
+            datatype: "json",
+            success: (responsefromserver) => {
+              if (responsefromserver.status) {
+                $("#message").html("Book added");
+              }
+            },
+            error: (errorfromserver) => {
+              $("#message").html("Book is Not added");
+            },
+          };
+          $.ajax(object);
+        });
+        $("#add").click(() => {
+          console.log("btn clicked");
+
+          let object = {
+            data: "",
+            url: "http://localhost:8081/viewall",
+            type: "get",
+            datatype: "json",
+            success: (responsefromserver) => {
+              if (responsefromserver.status) {
+                let contents = "";
+                for (let i = 0; i < responsefromserver.length; i++) {
+                  contents +=
+                    "<br/>" +
+                    responsefromserver[i].bookid +
+                    " " +
+                    responsefromserver[i].bookname +
+                    " " +
+                    responsefromserver[i].price;
+                }
+                $("#contents").html(contents);
+              }
+            },
+            error: (errorfromserver) => {
+              console.log("error occured");
+            },
+          };
+          $.ajax(object);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div>
+      <label for="Bookid">Book id: </label>
+      <input type="text" id="bookid" />
+      <br />
+      <label for="Bookname">Book Name: </label>
+      <input type="text" id="bookname" />
+      <br />
+      <label for="price">Price: </label>
+      <input type="text" id="price" />
+      <br />
+      <button id="add">add a book</button>
+      <br />
+      <span id="contents">show all book here</span>
+    </div>
+  </body>
+</html>
