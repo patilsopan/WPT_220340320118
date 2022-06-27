@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        let empno = document.querySelector("#empno");
+        let deptid = document.querySelector("#deptid");
+        let location = document.querySelector("#location");
+        empno.addEventListener("blur", () => {
+          if (empno.value == 0) {
+            alert("emp details not found");
+          } else if (empno.value % 2 != 0) {
+            deptid.value = 3;
+            location.value = "pune";
+          } else if (empno.value % 2 == 0) {
+            deptid.value = 2;
+            location.value = "mumbai";
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <input type="text" id="empno" placeholder="enter emp number" />
+    <br /><br />
+    <input type="text" id="deptid" placeholder="enter deptid" />
+    <br /><br />
+    <input type="text" id="location" placeholder="enter location" />
+  </body>
+</html>
